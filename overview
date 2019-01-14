@@ -1,0 +1,53 @@
+
+
+Here is an overview of my 3 attempts at solving the problem and my favourite solution from CodeWars.
+See https://www.codewars.com/kata/easy-diagonal a description of the problem.
+
+This is my first time learning functional programming, so it was a nice opportunity to test out
+looping with recursion.
+
+Attempt 1:
+At first, I decided that the best approach was sum up the values on the diagonal from (n,p) to "1"
+e.g -> diagonal(7, 2) = 28 = 1 + 2 + 3 + 4 + 5 + 6 + 7 = 28
+Whilst this attempt yielded the correct answer on my console, it tripped out on CodeWar's large numbers.
+I think my use of so much recursion was unneccessary. So I tried to slim it down.
+correct ans ✔️
+handle large #'s ❌ 
+See: pascal1.ex
+
+Attempt 2:
+I realised that I could slim down the recursion by using Pascal's triangle differently - this new 
+pattern took two adjacent terms on each line and added them. e.g -> diagonal(7,2) = 7 + 21
+This time I added nCp ("n choose p") and nC(p+1). This however tripped over large numbers as well.
+correct ans ✔️
+handle large #'s ❌ 
+See: pascal2.ex 
+
+Attempt 3:
+I was convinced the factorial recursion was immense when it came to large numbers. To try to reduce
+the load, I tried to come up with a way to not calculate any terms that would have been cancelled
+out during the division to calculate nCp. Long story shot, this attempt was unsuccessful. It worked
+with diagonal(7,1), diagonal(7,2), diagonal(8,4), but didn't work with large numbers (~ 100+). 
+I reckon it would have been quick enough if it did work.
+correct ans ❌
+handle large #'s ❓
+See: pascal3.ex
+
+My Fav Soln:
+By looking closer at Pascal's Triangle, a better pattern emerges. Instead of nCp + nC(p+1),
+a more elegant soln is (n+1)C(p+1). This can be easily observed. 
+e.g -> diagonal(6,2) = 21 (South-East from 6 Choose 2)
+Instead of recursion, Enum.reduce/3 is used. Mathematically speaking, you end up with
+[n(n-1)...(n-k) / k!]. Which when you sub in n+1, k+1 gives you (n+1)C(k+1). I believe that 
+Enum.reduce/3 would have enabled my method to work. Albeit in a less elegant way.
+correct ans ✔️
+handle large #'s ✔️
+See: pascal4.ex
+
+
+
+
+
+
+
+
